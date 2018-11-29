@@ -21,7 +21,8 @@ router.post("/addBautura", (req,res) =>{
         nume: req.body.nume,
         cantitate: req.body.cantitate,
         tip: req.body.tip,
-        locatie: req.body.locatie
+        locatie: req.body.locatie,
+        imagine: req.body.imagine
     });
 
     bautura.save().then(result=>{
@@ -61,7 +62,8 @@ router.patch("/:bauturaId", (req,res)=>{
         nume: req.body.nume,
         cantitate: req.body.cantitate,
         tip: req.body.tip,
-        locatie: req.body.locatie
+        locatie: req.body.locatie,
+        imagine: req.body.imagine
     }
     })
     .exec()

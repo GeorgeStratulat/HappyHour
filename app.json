@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.happyhour.app",
       "supportsTablet": true
+    },
+    "android":{
+      "package": "com.happyhour.app"
     }
   }
 }

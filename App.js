@@ -2,11 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, TextInput,
    TouchableOpacity, Button, NavigatorIOS, AsyncStorage} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import Memberarea from "./app/components/Memberarea";
 import Formular from "./app/components/Formular";
 import Main from "./app/components/Main";
 import Register from "./app/components/Register";
-import IndexNavigator from "./app/components/MainNavigator";
 import Detalii from "./app/components/Detalii";
 
 

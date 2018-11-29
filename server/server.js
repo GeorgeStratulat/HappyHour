@@ -126,7 +126,7 @@ app.use(bodyParser.json());
 
 app.use('/abonamente', AbonamenteRoutes);
 app.use("/users", UserRoutes);
-app.use("/bauturi", BauturaRoutes);
+app.use("/bautura", BauturaRoutes);
 app.use("/venue", VenueRoutes);
 app.use("/abonament_user", Abonament_UserRoutes);
 

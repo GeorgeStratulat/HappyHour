@@ -5,7 +5,10 @@ var BauturaSchema = new mongoose.Schema({
     nume: String,
     cantitate: Number,
     tip: String,
-    locatie: [{type: mongoose.Schema.Types.ObjectId, ref:"Venue"}]
+    // locatie: [{type: mongoose.Schema.Types.ObjectId, ref:"Venue"}],
+    locatie: String,
+    imagine: String
+
     
 });
 var Bautura = mongoose.model("Bautura", BauturaSchema);

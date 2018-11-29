@@ -12,7 +12,7 @@ class Formular extends React.Component {
   
     login(){
 
-    fetch("http://192.168.100.5:4000/users/login", {
+    fetch("https://radiant-beyond-44987.herokuapp.com/users/login", {
         method: "POST",
         headers:{
             "Accept": "application/json",
