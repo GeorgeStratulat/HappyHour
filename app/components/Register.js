@@ -70,7 +70,7 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground,
             const value = this.refs.form.getValue();
             // If the form is valid...
             if (value) {
-              fetch('http://192.168.100.5:4000/users/addUser', {
+              fetch('https://radiant-beyond-44987.herokuapp.com/users/addUser', {
                 method: 'POST',
                 headers: {
                   "Accept": "application/json",
@@ -81,10 +81,9 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground,
                 "nume": value.nume,
                 "email": value.email,
                 "data_nastere": value.data_nastere,
-                "tip_abonament": "smecher",
-                "password": value.password,
-                "bautura_zi": false,
-                "lista_bauturi": ""
+                
+                "parola": value.parola,
+                
                 })
             }).then((response) => response.json()).then((res) => {
                 if(res.success === true){
@@ -94,7 +93,7 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground,
                          nume:"",
                          email:"",
                          data_nastere:"",
-                         password: ""
+                         parola: ""
                      });
                 }else{
                     alert("it's from here");

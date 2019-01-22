@@ -3,6 +3,7 @@ import {ScrollView, YellowBox, Text, View, FlatList, ImageBackground, ActivityIn
     Image, TouchableOpacity, ToastAndroid, StyleSheet, AsyncStorage} from "react-native";
 import NavBar, { NavButton, NavButtonText, NavGroup, NavTitle } from 'react-native-nav';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {Header, ListItem} from "react-native-elements";
 import FullWidthImage from 'react-native-fullwidth-image'
 
@@ -23,9 +24,11 @@ import FullWidthImage from 'react-native-fullwidth-image'
     
 
     renderItem = ({item}) =>{
+        const {navigation} = this.props;
         return(
+            
         <TouchableOpacity style={{flex: 1, flexDirection:"row",marginBottom: 3}} 
-        onPress={()=> {   this.props.navigation.navigate(('Detalii'),{itemDetalii: item});
+        onPress={()=> {   this.props.navigation.navigate(('Detalii'),{itemDetalii: item, user_id: navigation.getParam("user_id", "NO-ID") });
     } }>
             <ImageBackground style={{ width:"100%", height:275, marginBottom: 15}} source={{uri: item.imagine}} >
 
@@ -64,6 +67,8 @@ import FullWidthImage from 'react-native-fullwidth-image'
     }
 
         componentDidMount(){
+            const {navigation} = this.props;
+            console.log(navigation.getParam("user_id", "NO-ID"));
             const url = "https://radiant-beyond-44987.herokuapp.com/venue";
             fetch(url)
             .then((response)=>response.json())
@@ -76,12 +81,15 @@ import FullWidthImage from 'react-native-fullwidth-image'
         }
 
     render(){
+        const {navigation} = this.props;
         return(
+            
             <View style={styles.container} >
             <Header
-            leftComponent={{ icon: 'user-o', type: "font-awesome", color: '#fff', size: 31, marginBottom: 10 }}
+            leftComponent={{ icon: 'user-o', type: "font-awesome", color: '#fff', size: 31, marginBottom: 15, 
+                            onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") } ) }}
             centerComponent={<LogoTitle/>}
-            rightComponent={{ icon: 'settings', color: '#fff', size: 36, marginBottom: 8 }} 
+            rightComponent={{ icon: 'settings', color: '#fff', size: 36, marginBottom: 0 }} 
             backgroundColor="#ee9323"
            outerContainerStyles={{height: 85, borderBottomWidth:0, marginBottom: -11, marginTop: 15}} 
 />
@@ -110,6 +118,19 @@ class LogoTitle extends React.Component {
       );
     }
   }
+
+//   class UserIcon extends React.Component{
+//       render(){
+//         const {navigation} = this.props;
+
+//           return(
+//               <TouchableOpacity style={{marginBottom: 9}} onPress={()=> {   this.props.navigation.navigate(('User'),{user_id: navigation.getParam("user_id", "NO-ID") });
+//             } }>
+//                   <FontAwesome  name="user-o" color={"white"} size={31}></FontAwesome>
+//               </TouchableOpacity>
+//           )
+//       }
+//   }
 
 const styles = StyleSheet.create({
     container: {

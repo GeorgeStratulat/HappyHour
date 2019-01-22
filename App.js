@@ -6,6 +6,9 @@ import Formular from "./app/components/Formular";
 import Main from "./app/components/Main";
 import Register from "./app/components/Register";
 import Detalii from "./app/components/Detalii";
+import User from "./app/components/User";
+import Istoric from "./app/components/Istoric";
+import Cumpara_Abonament from "./app/components/Cumpara_Abonament";
 
 
 export default class App extends React.Component {
@@ -32,7 +35,11 @@ Register : {screen: Register, navigationOptions: {
   header: null // Will hide header for HomePage
 }},
 Main : {screen: Main, navigationOptions:{ header: null}},
-Detalii : {screen: Detalii, navigationOptions:{header: null}}
+Detalii : {screen: Detalii, navigationOptions:{header: null}},
+User: {screen: User, navigationOptions: {header: null} },
+Istoric:{screen: Istoric, navigationOptions:{header: null}},
+Cumpara_Abonament:{screen: Cumpara_Abonament, navigationOptions:{header: null}}
+
 });
 
 const styles = StyleSheet.create({

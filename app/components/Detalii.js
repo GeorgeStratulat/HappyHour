@@ -42,6 +42,8 @@ class Detalii extends React.Component{
 
     renderItem = ({item}) =>{
         const width = Dimensions.get("window").width;
+        const {navigation} = this.props;
+        var numeBar = item.nume;
         return(
         <View style={{flex:1, flexDirection: 'column',  marginBottom: 1,
         backgroundColor: "#ee9323", justifyContent: 'center', alignItems: 'center'}} >
@@ -116,7 +118,44 @@ class Detalii extends React.Component{
                         'Colecteaza',
                         'Esti pe cale sa colectezi bautura. Continui?',
                         [
-                          {text: 'Da', onPress: () => {this.setState({visible: true, bauturaNume: item.nume, bauturaImagine: item.imagine})} },
+                          {text: 'Da', onPress: () => {
+
+                            fetch("https://radiant-beyond-44987.herokuapp.com/users/"+navigation.getParam("user_id", "NO-ID"))
+                            .then((response)=>response.json())
+                            .then(result =>{
+                                if(result.bautura_zi == false){
+                                
+                                    fetch("https://radiant-beyond-44987.herokuapp.com/bautura_comandata/addComanda" , {
+                            method: "POST",
+                            mode: "cors",
+                            headers:{
+                                "Accept": "application/json",
+                                "Content-Type": "application/json"
+                            },
+                            body : JSON.stringify({
+                                "id_bautura": item._id,
+                                "id_user": navigation.getParam("user_id", "NO-ID"),
+                                "imagine_bautura": item.imagine,
+                                "nume_bautura": item.nume,
+                                "locatie_bautura": numeBar
+                            })
+                        }).then((response) => response.json()).then((res) => {
+                                if(res){
+                                    console.log("a mers cica");
+                                }else{
+                                    alert("it's from here");
+                                    alert(res.message);
+                                }}).done();
+                        this.setState({visible: true, bauturaNume: item.nume, bauturaImagine: item.imagine})  
+
+                                }else{alert("Asteapta pana maine")}
+                            })
+
+                          
+
+                            } 
+                        },
+
                           {text: 'Nu', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                         ],
                         { cancelable: false }
@@ -133,7 +172,10 @@ class Detalii extends React.Component{
     }
 
         componentDidMount(){
-            const url = "https://radiant-beyond-44987.herokuapp.com/bautura";
+            const {navigation} = this.props;
+            console.log(navigation.getParam("user_id","NO-ID"));
+            const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
+            console.log(url);
                 fetch(url)
                 .then((response)=>response.json())
                 .then( result => this.setState(
@@ -190,7 +232,7 @@ class Detalii extends React.Component{
                             onPress: () => this.props.navigation.navigate(('Main'))} }
             // centerComponent={{ text: 'HAPPY HOUR', style: { color: '#fff' } }}
             centerComponent={<LogoTitle/>}
-            rightComponent={{ icon: 'settings', color: '#fff', size: 36, marginBottom: 8 }}
+            rightComponent={{ icon: 'settings', color: '#fff', size: 36, marginBottom: 0 }}
            backgroundColor="#ee9323"
             
            outerContainerStyles={{height: 85, borderBottomWidth:0, marginBottom: -11, marginTop: 15}} 
@@ -220,15 +262,7 @@ class Detalii extends React.Component{
 export default Detalii;
 
 
-const SECTIONS = [
-    {
-      title: 'CLICK AICI PENTRU DETALII',
-      content:"CEA MAI BUNA SI NEBUNA CAFENEA DIN ISTORIA OMENIRII. WASHINGTON A FOST AICI SI A ZIS MAMAMAMA. \n a da si ai si o cafea gratis  "
-    },
-    {title: "orar",
-     content: " Luni:             08-22 \n Marti:           08-22 \n Miercuri:       08-22 \n Joi:               08-22 \n Vineri:           08-22 \n Sambata:     08-22 \n Duminica:     08-22"     
-}
-  ];
+
 const styles =  StyleSheet.create({
     modal:{
         height: 300,

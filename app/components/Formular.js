@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, 
-    TextInput, TouchableOpacity, NavigatorIOS, Button, AsyncStorage } from 'react-native';  
+    TextInput, TouchableOpacity, AsyncStorage } from 'react-native';  
 import Memberarea from "./Memberarea";
 
 
 class Formular extends React.Component {
     constructor(props ){
         super(props );
-         this.state = {username: "pai@pai", password: "1234", isUserLoggedIn: false};
+         this.state = {username: "test", password: "1234", id_user: "", isUserLoggedIn: false};
     }
   
     login(){
@@ -31,8 +31,7 @@ class Formular extends React.Component {
                 AsyncStorage.setItem("username", username);
                  this.setState(
                      {
-                     username: "",
-                     password: "",
+                    id_user: res.message,
                      isUserLoggedIn: login
                  });
             }else{
@@ -58,10 +57,10 @@ class Formular extends React.Component {
         placeholderTextColor="#292929" secureTextEntry={true} style={styles.TextInput} underlineColorAndroid={"transparent"} />
         
         <TouchableOpacity onPress={()=>{
-            // this.login();
-            // if(this.state.isUserLoggedIn){
-            this.props.navigation.navigate('Main');
-            // }else{alert("nu merge loginu")}
+            this.login();
+            if(this.state.isUserLoggedIn){
+            this.props.navigation.navigate(('Main'), {user_id: this.state.id_user});
+            }else{alert("nu merge loginu")}
           }  } style={styles.button} >
         <Text style={styles.btntext} >Login</Text>
         </TouchableOpacity>
@@ -81,7 +80,7 @@ export default Formular;
 const styles = StyleSheet.create({
     register:{
         padding: 20,
-        alignItems:"center",
+        aligns:"center",
         fontSize: 14,
         color: "#fff"
     },
