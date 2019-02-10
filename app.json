@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "HappyHour",
+    "name": "HappyHour_M60",
     "description": "This project is really great.",
-    "slug": "HappyHour",
+    "slug": "happyhour_m60",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
@@ -12,6 +12,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "facebookScheme":"fb370671176845478",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -27,7 +28,7 @@
       "bundleIdentifier": "com.happyhour.app",
       "supportsTablet": true
     },
-    "android":{
+    "android": {
       "package": "com.happyhour.app"
     }
   }

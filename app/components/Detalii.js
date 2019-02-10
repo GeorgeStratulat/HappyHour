@@ -3,16 +3,14 @@ import {ScrollView, Alert, YellowBox, Text, View, FlatList, ImageBackground, Act
     Image, TouchableOpacity, TouchableHighlight, ToastAndroid, StyleSheet, AsyncStorage, Dimensions, Platform} from "react-native";
     import EvilIcons from "react-native-vector-icons/EvilIcons";
     import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Main from "./Main";
-import NavBar, { NavButton, NavButtonText, NavGroup, NavTitle } from 'react-native-nav';
 import Carousel from 'react-native-snap-carousel';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import {Header} from "react-native-elements";
 import PopupDialog, { DialogButton, DialogContent } from 'react-native-popup-dialog';
-import { Font } from 'expo';
+import { TextInput } from "react-native-gesture-handler";
+import { MapView } from 'expo';
 
 
-// import Slideshow from 'react-native-slideshow';
 
 
 
@@ -31,8 +29,9 @@ class Detalii extends React.Component{
             fontLoaded: false,
             collapsed:false,
             bauturaNume: "",
-            bauturaImagine: ""
-            
+            bauturaImagine: "",
+            twoFactorVerify: false,
+            textVerify: '',
         };
         
     }
@@ -46,14 +45,14 @@ class Detalii extends React.Component{
         var numeBar = item.nume;
         return(
         <View style={{flex:1, flexDirection: 'column',  marginBottom: 1,
-        backgroundColor: "#ee9323", justifyContent: 'center', alignItems: 'center'}} >
+        backgroundColor: "#fff", justifyContent: 'center', alignItems: 'center'}} >
             <Image style={{ alignSelf: 'stretch', height:300, }} 
                 source={{uri: item.imagine}} />
                  
-                     <Text style={{fontSize: 30, fontWeight:"bold" ,color: "#fff"}}>
+                     <Text style={{fontSize: 30, fontWeight:"bold" ,color: "#ee9323"}}>
                          {item.nume}
                      </Text>
-                     <Text style={{color: "#fff",fontSize:19, marginBottom:4}}> 
+                     <Text style={{color: "#ee9323",fontSize:19, marginBottom:4}}> 
                      <EvilIcons name = "location" size={19}/> 
 
                          {item.locatie}
@@ -68,41 +67,41 @@ class Detalii extends React.Component{
                     </TouchableHighlight>
                      </CollapseHeader>
                     <CollapseBody>
-                    <Text style={{color:"white", marginLeft: 15, marginRight: 8}}>Cea mai buna si nebuna cafenea si restaurant si bar din tot Bucurestiul</Text>
-                    <Text style={{color:"white", marginBottom: 2, marginLeft: 15, marginRight: 8}}>Oferim de asemenea si concerte in fiecare sambata dupa amiaza a fiecarei seri de marti seara intr-o duminica iernatica de vara.</Text>
+                    <Text style={{color:"#ee9323", marginLeft: 15, marginRight: 8}}>Specialty Coffee and well crafted food. M60 Café and bistro is located in the heart of Bucharest, in "Piata Amzei".</Text>
+                    <Text style={{color:"#ee9323", marginBottom: 2, marginLeft: 15, marginRight: 8}}>It's a place where simplicity, quality and meaningful details come together to create a home-like atmosphere. </Text>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Luni</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Luni</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Marti</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Marti</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Miercuri</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Miercuri</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Joi</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Joi</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Vineri</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Vineri</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Sambata</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Sambata</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"white"}}>Duminica</Text></View><View/><View><Text style={{color:"white"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Duminica</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
                     </View>
                     
                     </CollapseBody>
                  </Collapse>
 
-            <Text style={{fontSize: 25, marginTop:7, marginBottom:5, fontWeight:"bold", color: "#fff"}}>Bauturi oferite</Text>
+            <Text style={{fontSize: 25, marginTop:7, marginBottom:5, fontWeight:"bold", color: "#ee9323"}}>Bauturi oferite</Text>
 
             <Carousel sliderWidth={width}
             itemWidth={width}
@@ -112,7 +111,7 @@ class Detalii extends React.Component{
               
             <Image style={{ width: 150, height:150, marginBottom: 4, borderWidth: 2, borderColor: "#fbd22c" }} 
                 source={{uri: item.imagine}} />
-                <Text style={{fontSize: 18, color:"white"}}>{ item.nume }</Text>
+                <Text style={{fontSize: 18, color:"#ee9323"}}>{ item.nume }</Text>
                 <TouchableOpacity onPress={()=> {
                     Alert.alert(
                         'Colecteaza',
@@ -146,7 +145,7 @@ class Detalii extends React.Component{
                                     alert("it's from here");
                                     alert(res.message);
                                 }}).done();
-                        this.setState({visible: true, bauturaNume: item.nume, bauturaImagine: item.imagine})  
+                        this.setState({bauturaNume: item.nume, bauturaImagine: item.imagine, twoFactorVerify: true})  
 
                                 }else{alert("Asteapta pana maine")}
                             })
@@ -167,6 +166,15 @@ class Detalii extends React.Component{
             </View>)}
             
             />
+            <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
         </View>        
         );
     }
@@ -183,10 +191,7 @@ class Detalii extends React.Component{
                 .catch((error) => {
                     console.log("nu merge fetchul");
                 });
-                Font.loadAsync({
-                    'BPreplay': require("../../assets/fonts/concertone-regular.ttf"),
-                  });   
-                  this.setState({ fontLoaded: true })
+              
         }
         
         
@@ -226,24 +231,46 @@ class Detalii extends React.Component{
             
             return(
             <View style={styles.container}>
-
-            <Header
-            leftComponent={{ icon: 'md-arrow-round-back', type: "ionicon", color: '#fff', size: 36, marginBottom: 40,
-                            onPress: () => this.props.navigation.navigate(('Main'))} }
-            // centerComponent={{ text: 'HAPPY HOUR', style: { color: '#fff' } }}
-            centerComponent={<LogoTitle/>}
-            rightComponent={{ icon: 'settings', color: '#fff', size: 36, marginBottom: 0 }}
-           backgroundColor="#ee9323"
-            
-           outerContainerStyles={{height: 85, borderBottomWidth:0, marginBottom: -11, marginTop: 15}} 
-           />
+                    <Header
+                        leftComponent={{
+                            style: {
+                                paddingBottom: 15,
+                                marginBottom: 15,
+                            },
+                            icon: 'md-arrow-round-back', type: "ionicon", color: '#ffcd00', size: 24,
+                            onPress: () => this.props.navigation.navigate(('Main'))
+                        }}
+                        centerComponent={<LogoTitle />}
+                       
+                        backgroundColor="#fff"
+                        leftContainerStyle={{ bottom: 100 }}
+                        outerContainerStyles={{ height: 50, borderBottomWidth: 0, marginBottom: 0, marginTop: 0 }}
+                        containerStyle={{ height: 20 }}
+                    >
+                    </Header>
+       
 
             <FlatList
                     data={dataDetalii}
                     renderItem={this.renderItem}
                     keyExtractor={(item, index) => index} >
             </FlatList>
-    
+    <PopupDialog dialogStyle={{ backgroundColor: "#fbd22c", }} width={300} visible={this.state.twoFactorVerify} onTouchOutside={() => { this.setState({ visible: false }); }}>
+        <DialogContent style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <TextInput
+                                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                                onChangeText={(textVerify) => this.setState({ textVerify })}
+                                value={this.state.textVerify}
+                            />
+            <TouchableHighlight style={{ marginTop: 5, width: 35, backgroundColor: "#ee9323", justifyContent: 'center', alignItems: 'center' }} onPress={() => { if(this.state.textVerify === "cod"){
+                this.setState({ visible: true, twoFactorVerify: false });
+                 }else{
+                    alert("Codul tau de verificare nu este valid. Reincearca")
+                    this.setState({twoFactorVerify: false, visible: false})
+                 }
+             }}><Text style={{ color: "white", fontSize: 12 }} >Verifica</Text></TouchableHighlight>
+        </DialogContent>
+    </PopupDialog>
 
     <PopupDialog dialogStyle={{backgroundColor:"#fbd22c",}} width={300} visible={this.state.visible} onTouchOutside={() => {this.setState({ visible: false });}}>
     <DialogContent style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -251,13 +278,14 @@ class Detalii extends React.Component{
                 source={{uri: this.state.bauturaImagine}} />
                 <Text style={{marginTop: 5, fontSize: 18, color:"white"}}>Felicitari! Ati primit din partea casei: { this.state.bauturaNume }</Text>
       <Text style={{marginTop: 10, color:"white"}}>VA RUGAM ASTEPTATI CA OSPATARUL SA VERIFICE SI SA VA ADUCA COMANDA :).</Text>
-      <TouchableHighlight style={{marginTop: 5, width: 35,backgroundColor:"#ee9323", justifyContent: 'center', alignItems: 'center' }}><Text style={{color:"white", fontSize: 12}} >OK</Text></TouchableHighlight>
+                            <TouchableHighlight style={{ marginTop: 5, width: 35, backgroundColor: "#ee9323", justifyContent: 'center', alignItems: 'center' }} onPress={() => { this.setState({ visible: false }); }}><Text style={{color:"white", fontSize: 12}} >OK</Text></TouchableHighlight>
     </DialogContent>
   </PopupDialog>
   </View>
         
       )
-    }}
+    }
+}
         
 export default Detalii;
 
@@ -277,7 +305,7 @@ const styles =  StyleSheet.create({
     container: {
         alignSelf: 'stretch',
         flex: 1,
-        backgroundColor: "#ee9323",
+        backgroundColor: "#fff",
       
     },
 
@@ -294,13 +322,13 @@ const styles =  StyleSheet.create({
 
 class LogoTitle extends React.Component {
     render() {
-      return (
-        <View style={{ }} >
-        <Image
-          source={require('../../assets/logo.png')}
-          style={{ width: 60, height: 60, bottom: 0}}
-        />
-        </View>
-      );
+        return (
+            <View style={{}} >
+                <Image
+                    source={require('../../assets/logoTestHeader.png')}
+                    style={{ width: 60, height: 40, top: 10 }}
+                />
+            </View>
+        );
     }
-  }
+}

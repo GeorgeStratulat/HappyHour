@@ -21,16 +21,23 @@ class Istoric extends React.Component{
 
     renderItem = ({item}) =>{
         var timp = new Date(item.timp_comanda);
-        var day = timp.getDay();
+        var day = timp.getDate();
         var month = timp.getMonth();
         var year = timp.getFullYear();
+        var hour = timp.getHours();
+        var minutes = timp.getMinutes();
+        console.log(day+" "+month+ " " + year);
         return(
-            
         <View style={styles.container}>
             <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                      backgroundColor:"#ffb346", height:70}}>
-                    <View style={{ marginLeft: 15}}><View><Text style={{color:"white", fontSize:18, fontWeight:"bold"}}><FontAwesome  name="glass" color={"white"} size={14}></FontAwesome> {item.nume_bautura}</Text></View><View><Text style={{color: "#fff",fontSize:15}}><FontAwesome  name="clock-o" color={"white"} size={15}></FontAwesome> {day}/{month}/{year}</Text></View><View><Text style={{color: "#fff",fontSize:15}}><EvilIcons name = "location" size={16}/> 
-{item.locatie_bautura}</Text></View></View>
+                    <View style={{ marginLeft: 15}}>
+                    <View>
+                        <Text style={{color:"white", fontSize:18, fontWeight:"bold"}}>
+                        <FontAwesome  name="glass" color={"white"} size={14}></FontAwesome> {item.nume_bautura}</Text></View>
+                        <View><Text style={{color: "#fff",fontSize:15}}><FontAwesome  name="clock-o" color={"white"} size={15}></FontAwesome> {day}/{month+1}/{year} {hour}:{minutes}</Text></View>
+                        <View><Text style={{color: "#fff",fontSize:15}}><EvilIcons name = "location" size={16}/>{item.locatie_bautura}</Text></View>
+                        </View>
 
                         <View style={{marginRight: 15,}}><Image source={{uri: item.imagine_bautura}} style={{ width: 70, height: 70}}></Image></View>
                     </View>

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Users = require ("../schema/users.js");
+const Bautura = require("../schema/bautura.js");
 
 router.get("/", (req,res)=>{
     Users.find().exec().then(docs=>{
@@ -103,5 +104,22 @@ router.delete("/:userId", (req,res) =>{
         });
       });
 });
+
+router.delete("/:userId/:bauturaId", (req,res) =>{
+    const uid = req.params.userId;
+    const buid = req.params.bauturaId;
+    Users.findById(id).exec().then(doc=>{
+        console.log("From database ", doc);
+        if(doc){
+            res.status(200).json(doc.lista_bauturi);
+        } else{
+            res.status(404).json({ message: "No employee found with specified id" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+})
 
 module.exports = router;

@@ -1,45 +1,91 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, 
-    TextInput, TouchableOpacity, AsyncStorage } from 'react-native';  
+    TextInput, TouchableOpacity, AsyncStorage, Button } from 'react-native';  
 import Memberarea from "./Memberarea";
 
 
 class Formular extends React.Component {
     constructor(props ){
         super(props );
-         this.state = {username: "test", password: "1234", id_user: "", isUserLoggedIn: false};
+         this.state = {username: "", password: "", id_user: "", isUserLoggedIn: false};
     }
-  
-    login(){
-
-    fetch("https://radiant-beyond-44987.herokuapp.com/users/login", {
-        method: "POST",
-        headers:{
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body : JSON.stringify({
-            "email": this.state.username,
-            "parola": this.state.password
+    componentDidMount(){
+        var value = AsyncStorage.getItem('username');
+        value.then((e) => {
+            this.setState({
+                id_user: e
+            })
+        })
+        .then(() => {
+           if(this.state.id_user!== undefined && this.state.id_user!== null && this.state.id_user!=""){
+               this.props.navigation.navigate(('Main'), { user_id: this.state.id_user });
+           }
         })
     }
+
+    async logInFB() {
+        try {
+          const {
+            type,
+            token,
+            expires,
+            permissions,
+            declinedPermissions,
+          } = await Expo.Facebook.logInWithReadPermissionsAsync('370671176845478', {
+            permissions: ['public_profile'],
+          });
+          if (type === 'success') {
+            // Get the user's name using Facebook's Graph API
+            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+            console.log(response);
+            alert(`Logged in! ${(await response.json()).name}`);
+            
+          } else {
+            // type === 'cancel'
+          }
+        } catch ({ message }) {
+          alert(`Facebook Login Error: ${message}`);
+        }
+      }
+
+    login(){
+    if(this.state.username!="" && this.state.password!=""){
+        fetch("https://radiant-beyond-44987.herokuapp.com/users/login", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "email": this.state.username,
+                "parola": this.state.password
+            })
+        }
         ).then((response) => response.json()).then((res) => {
-  
-            if(res.success === true){
+
+            if (res.success === true) {
                 var username = res.message;
                 var login = true;
                 AsyncStorage.setItem("username", username);
-                 this.setState(
-                     {
-                    id_user: res.message,
-                     isUserLoggedIn: login
-                 });
-            }else{
-                alert("it's from here");
-                alert(res.message);
+                this.setState(
+                    {
+                        id_user: res.message,
+                        isUserLoggedIn: login
+                    });
+            } else {
+
+                alert("Something went wrong!");
+            }
+        }).then(() => {
+            if (this.state.isUserLoggedIn) {
+                this.props.navigation.navigate(('Main'), { user_id: this.state.id_user });
             }
         })
-    .done();
+            .done();
+    }else{
+        alert("Te rugam completeaza campurile. Multumim!")
+    }
+   
   }
     
   
@@ -56,12 +102,10 @@ class Formular extends React.Component {
         <TextInput placeholder="password" onChangeText={(password)=> this.setState({password})} value={this.state.password}
         placeholderTextColor="#292929" secureTextEntry={true} style={styles.TextInput} underlineColorAndroid={"transparent"} />
         
-        <TouchableOpacity onPress={()=>{
-            this.login();
-            if(this.state.isUserLoggedIn){
-            this.props.navigation.navigate(('Main'), {user_id: this.state.id_user});
-            }else{alert("nu merge loginu")}
-          }  } style={styles.button} >
+                <TouchableOpacity onPress={() => this.login()} 
+         style={styles.button} >
+
+         <Button onPress={this.logInFB.bind(this)} title='Login with Facebook'/>
         <Text style={styles.btntext} >Login</Text>
         </TouchableOpacity>
 
@@ -80,7 +124,6 @@ export default Formular;
 const styles = StyleSheet.create({
     register:{
         padding: 20,
-        aligns:"center",
         fontSize: 14,
         color: "#fff"
     },
