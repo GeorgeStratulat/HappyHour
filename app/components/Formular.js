@@ -1,19 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, 
-    TextInput, TouchableOpacity, AsyncStorage, Button } from 'react-native';  
+    TextInput, TouchableOpacity, AsyncStorage, Button, Image } from 'react-native';  
 import Memberarea from "./Memberarea";
 
 
 class Formular extends React.Component {
     constructor(props ){
         super(props );
-         this.state = {username: "", password: "", id_user: "", isUserLoggedIn: false};
+         this.state = {username: "", password: "", id_user: "", isUserLoggedIn: false, userInfo:""};
     }
     componentDidMount(){
+        const {navigation} = this.props;
         var value = AsyncStorage.getItem('username');
         value.then((e) => {
             this.setState({
-                id_user: e
+                id_user: e,
+                userInfo:"",
+                picture:""
             })
         })
         .then(() => {
@@ -36,9 +39,19 @@ class Formular extends React.Component {
           });
           if (type === 'success') {
             // Get the user's name using Facebook's Graph API
-            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,birthday,picture&redirect=false`);
             console.log(response);
-            alert(`Logged in! ${(await response.json()).name}`);
+            const { picture, name, birthday } = await response.json();
+            var pic_url = JSON.stringify(picture.data.url);
+            // this.setState({picture: response.picture.data.url})
+            // const userInfo = await response.json();
+            // this.setState({userInfo: await response.json()});
+            if(1==1){ console.log(name+" "+birthday+" "+pic_url); return(
+                <View style={{marginRight: 15,}}><Image source={{uri: 'data:'+pic_url}} style={{ width: 45, height: 45}}></Image></View>
+    
+              ); }
+            
+            // this.props.navigation.navigate(('User'), { user_id: this.state.id_user, user_info: this.state.userInfo });
             
           } else {
             // type === 'cancel'
@@ -48,6 +61,7 @@ class Formular extends React.Component {
         }
       }
 
+      
     login(){
     if(this.state.username!="" && this.state.password!=""){
         fetch("https://radiant-beyond-44987.herokuapp.com/users/login", {
@@ -112,6 +126,8 @@ class Formular extends React.Component {
         <Text onPress={()=>this.props.navigation.navigate('Register')} style={styles.register}>
         Nu aveti cont? Va puteti crea aici!
         </Text>
+        {/* <View style={{marginRight: 15,}}><Image source={{uri: this.state.userInfo.picture.data.url}} style={{ width: 45, height: 45}}></Image></View> */}
+
 
         </ImageBackground>
         

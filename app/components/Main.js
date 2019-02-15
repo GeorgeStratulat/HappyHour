@@ -46,7 +46,7 @@ import FullWidthImage from 'react-native-fullwidth-image'
              user_id: navigation.getParam("user_id", "NO-ID") });
     } }>
                
-                <Image borderRadius={20} source={{ uri: item.imagine }} style={styles.imgCard}/>
+                <Image borderRadius={20} source={{ uri: item.imagine[0] }} style={styles.imgCard}/>
                 <View style={styles.overlay} />
                  <View style={{flex:1, position: "absolute", bottom: 0, left: 0, marginLeft: 5, padding: 20}}>
 

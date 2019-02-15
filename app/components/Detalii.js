@@ -8,7 +8,8 @@ import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-co
 import {Header} from "react-native-elements";
 import PopupDialog, { DialogButton, DialogContent } from 'react-native-popup-dialog';
 import { TextInput } from "react-native-gesture-handler";
-import { MapView } from 'expo';
+import { MapView, Marker } from 'expo';
+
 
 
 
@@ -43,11 +44,26 @@ class Detalii extends React.Component{
         const width = Dimensions.get("window").width;
         const {navigation} = this.props;
         var numeBar = item.nume;
+        var detalii = item.detalii;
+        detalii = detalii.replace(/.ceva/g, '\n');
+        var orar = item.orar;
+        console.log(detalii.replace(/.ceva/g, '\n'));
+        console.log("Faire attention->>"+item.imagine);
+        console.log(orar);
         return(
         <View style={{flex:1, flexDirection: 'column',  marginBottom: 1,
         backgroundColor: "#fff", justifyContent: 'center', alignItems: 'center'}} >
-            <Image style={{ alignSelf: 'stretch', height:300, }} 
-                source={{uri: item.imagine}} />
+            <Carousel
+              data={item.imagine}
+              sliderWidth={width}
+              itemWidth={width}
+              renderItem={ ({item})=> (
+                <Image style={{ alignSelf: 'stretch', height:300 }} 
+                source={{uri: item}} />
+                
+                ) }
+              
+            />
                  
                      <Text style={{fontSize: 30, fontWeight:"bold" ,color: "#ee9323"}}>
                          {item.nume}
@@ -67,35 +83,34 @@ class Detalii extends React.Component{
                     </TouchableHighlight>
                      </CollapseHeader>
                     <CollapseBody>
-                    <Text style={{color:"#ee9323", marginLeft: 15, marginRight: 8}}>Specialty Coffee and well crafted food. M60 Café and bistro is located in the heart of Bucharest, in "Piata Amzei".</Text>
-                    <Text style={{color:"#ee9323", marginBottom: 2, marginLeft: 15, marginRight: 8}}>It's a place where simplicity, quality and meaningful details come together to create a home-like atmosphere. </Text>
+                    <Text style={{color:"#ee9323", marginBottom: 2, marginLeft: 15, marginRight: 8}}>{" "+detalii}</Text>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Luni</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Luni</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[0]}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Marti</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Marti</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[0]}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Miercuri</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Miercuri</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[0]}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Joi</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Joi</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[0]}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Vineri</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Vineri</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[1]}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Sambata</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Sambata</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[1]}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Duminica</Text></View><View/><View><Text style={{color:"#ee9323"}}>09-22</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Duminica</Text></View><View/><View><Text style={{color:"#ee9323"}}>{orar[1]}</Text></View>
                     </View>
                     
                     </CollapseBody>
@@ -103,8 +118,8 @@ class Detalii extends React.Component{
 
             <Text style={{fontSize: 25, marginTop:7, marginBottom:5, fontWeight:"bold", color: "#ee9323"}}>Bauturi oferite</Text>
 
-            <Carousel sliderWidth={width}
-            itemWidth={width}
+            <Carousel layout={'default'} sliderWidth={width}
+            itemWidth={width/2.3}
               
               data={this.state.dataSource}
               renderItem={({item})=>( <View style={styles.slideContainer}>
@@ -166,15 +181,20 @@ class Detalii extends React.Component{
             </View>)}
             
             />
-            <MapView
-        style={{ flex: 1 }}
+            <MapView 
+        style={{ flex: 1, width: 250, height:250}}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+          latitude: 44.443189,
+          longitude: 26.096726,
+          latitudeDelta: 0.0102,
+          longitudeDelta: 0.00451,
+        }}>
+        <MapView.Marker coordinate={{latitude: 44.443189,
+          longitude: 26.096726}}>
+          <Image style={{width: 20, height:20}} source={require("../../assets/happy_user2.png")}></Image>
+          <Text style={{color:"black", fontWeight: "bold"}}>M60</Text>
+          </MapView.Marker>
+        </MapView>
         </View>        
         );
     }

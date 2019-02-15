@@ -9,6 +9,7 @@ import Detalii from "./app/components/Detalii";
 import User from "./app/components/User";
 import Istoric from "./app/components/Istoric";
 import Cumpara_Abonament from "./app/components/Cumpara_Abonament";
+import Support from "./app/components/Support";
 
 
 export default class App extends React.Component {
@@ -38,7 +39,8 @@ Main : {screen: Main, navigationOptions:{ header: null}},
 Detalii : {screen: Detalii, navigationOptions:{header: null}},
 User: {screen: User, navigationOptions: {header: null} },
 Istoric:{screen: Istoric, navigationOptions:{header: null}},
-Cumpara_Abonament:{screen: Cumpara_Abonament, navigationOptions:{header: null}}
+Cumpara_Abonament:{screen: Cumpara_Abonament, navigationOptions:{header: null}},
+Support:{screen: Support, navigationOptions:{header:null}}
 
 });
 

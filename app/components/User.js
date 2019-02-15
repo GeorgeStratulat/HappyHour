@@ -10,6 +10,7 @@ import Carousel from 'react-native-snap-carousel';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import {Header} from "react-native-elements";
 import PopupDialog, { DialogButton, DialogContent } from 'react-native-popup-dialog';
+import { TapGestureHandler } from "react-native-gesture-handler";
 
 
 class User extends React.Component{
@@ -19,13 +20,17 @@ class User extends React.Component{
             dataSource:[],
             nrBauturi: 0,
             tipAbonament:"",
-            sfarsitAbonament:""
+            sfarsitAbonament:"",
+            userInfo: ""
         }
     }
 
     componentDidMount(){
         const {navigation} = this.props;
         var idUser = navigation.getParam("user_id", "NO-ID");
+        var userInfo = navigation.getParam("user_info", "NO-INFO");
+        console.log("->>>>" + userInfo)
+        this.setState({userInfo: userInfo});
         console.log(navigation.getParam("user_id", "NO-ID"));
         const url = "https://radiant-beyond-44987.herokuapp.com/users/"+idUser ;
         console.log(url);
@@ -73,9 +78,12 @@ class User extends React.Component{
 
                 <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                      backgroundColor:"#ffb346", height:70}}>
-                    <View style={{ marginLeft: 15, }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>{item.prenume} {item.nume}</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{item.email}</Text></View></View>
+                    {/* <View style={{ marginLeft: 15, }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>{item.prenume} {item.nume}</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{item.email}</Text></View></View> */}
+                    <View style={{ marginLeft: 15, }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}> {this.state.userInfo.name}</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{item.email}</Text></View></View>
 
+                        {/* <View style={{marginRight: 15,}}><Image source={{uri: this.state.userInfo.picture.data.url}} style={{ width: 45, height: 45}}></Image></View> */}
                         <View style={{marginRight: 15,}}><Image source={require("../../assets/happy_user2.png")} style={{ width: 45, height: 45}}></Image></View>
+
                     </View>
                 
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
@@ -104,6 +112,12 @@ class User extends React.Component{
 
                         
                     </View>
+
+                <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
+                    backgroundColor: "#ffb346", height: 70, paddingBottom: 15}} > 
+                <Text>Test</Text>
+                </View>
+
                 <Button
                     title='Logout'
                     loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
@@ -129,14 +143,14 @@ class User extends React.Component{
             <View style={styles.container}>
        
                        <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
-                            backgroundColor:"#ffb346", height:70}}>
+                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, marginBottom: 2}}>
                                <View style={{ marginLeft: 15,}}><View><Text style={{color:"white", fontSize:20, fontWeight:"bold"}}>{item.prenume} {item.nume}</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{item.email}</Text></View></View>
        
                                <View style={{marginRight: 15,}}><Image source={require("../../assets/happy_user2.png")} style={{ width: 45, height: 45}}></Image></View>
                            </View>
                        
                            <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
-                            backgroundColor:"#ffb346", height:70}}>
+                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, marginTop: 2, marginBottom: 2}}>
                     <View style={{ marginLeft: 15 }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>Ati beneficiat de:</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{this.state.nrBauturi} bauturi</Text></View></View>
                            <View style={{marginRight: 15}}><TouchableOpacity onPress={()=> { this.props.navigation.navigate(('Istoric'), {user_id: item._id}) } }
                        style={{width: 100, height: 38, marginTop: 10, flexDirection:"row", alignItems:"center", 
@@ -148,18 +162,43 @@ class User extends React.Component{
                        
        
                        <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
-                            backgroundColor:"#ffb346", height:70, paddingBottom: 15}}>
+                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, paddingBottom: 15, marginTop: 2, marginBottom: 2}}>
                     <View style={{ marginLeft: 15, }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>Detalii abonament:</Text></View><View><Text style={{color: "#fff",fontSize:13}}>Nu aveti abonament</Text></View></View>
-                               <View style={{marginRight: 15}}><TouchableOpacity onPress={()=> { this.props.navigation.navigate(('Cumpara_Abonament'), {user_id: item._id}) } }
+                               
+                               <View style={{marginRight: 15}}>
+                               <TouchableOpacity onPress={()=> { this.props.navigation.navigate(('Cumpara_Abonament'), {user_id: item._id}) } }
                        style={{width: 100, height: 38, marginTop: 10, flexDirection:"row", alignItems:"center", 
                        backgroundColor:"#fbd22c", justifyContent: 'center',marginTop: 7, marginBottom: 15}}>
                        <Text style={{fontSize: 15, color:"white"}}>Cumpara abonament</Text>
-                       </TouchableOpacity></View>
+                       </TouchableOpacity>
+                       </View>
                                
        
-                               
+                       
                            </View>
-       
+
+                <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center', 
+                                backgroundColor: "rgba(255,179,70, 0.7)", height: 70, paddingBottom: 15, marginTop: 2, marginBottom: 2}}> 
+                    <TouchableOpacity onPress={()=> { this.props.navigation.navigate(('Support'), {user_id: item._id}) } } style={{ marginLeft: 15, }}><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>Support</Text></TouchableOpacity>
+                </View>
+
+                           <Button
+                    title='Logout'
+                    loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
+                    titleStyle={{ fontWeight: "900" }}
+                    buttonStyle={{
+                        marginTop: 20,
+                        backgroundColor: "#e24650",
+                        width: 300,
+                        height: 45,
+                        borderColor: "transparent",
+                        borderWidth: 0,
+                        borderRadius: 5,
+                        alignSelf: 'center'
+                    }}
+                    onPress={() => this._logout()}
+                    containerStyle={{ paddingTop: 20 }}
+                />
                         </View>
                );
     }

@@ -29,7 +29,13 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.happyhour.app"
+      "package": "com.happyhour.app",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAKZqix4_lbGDKk9oQt9p5caw9m-gTorJY"
+        }
+      }
+  
     }
   }
 }
