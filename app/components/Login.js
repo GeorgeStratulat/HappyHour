@@ -7,10 +7,7 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground,
 class Login extends React.Component{
     constructor(props){
         super(props);
-        this.state={
-            email: "",
-            password: ""
-        }
+        this.state = {fontLoaded: false, email: "", password: "", id_user: "", isUserLoggedIn: false, userInfo:""};
     }
 
     async componentDidMount() {
@@ -18,7 +15,61 @@ class Login extends React.Component{
           'comic-relief': require('../../assets/fonts/ComicRelief-Bold.ttf'),
         });
         this.setState({ fontLoaded: true });
+
+        var value = AsyncStorage.getItem('email');
+        value.then((e) => {
+            this.setState({
+                id_user: e,
+                userInfo:"",
+                picture:""
+            })
+        })
+        .then(() => {
+           if(this.state.id_user!== undefined && this.state.id_user!== null && this.state.id_user!=""){
+               this.props.navigation.navigate(('Main'), { user_id: this.state.id_user });
+           }
+        })
     }
+
+    login(){
+        if(this.state.email!="" && this.state.password!=""){
+            fetch("https://radiant-beyond-44987.herokuapp.com/users/login", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": this.state.email,
+                    "parola": this.state.password
+                })
+            }
+            ).then((response) => response.json()).then((res) => {
+    
+                if (res.success === true) {
+                    var email = res.message;
+                    var login = true;
+                    AsyncStorage.setItem("email", email);
+                    this.setState(
+                        {
+                            id_user: res.message,
+                            isUserLoggedIn: login
+                        });
+                } else {
+    
+                    alert("Something went wrong!");
+                }
+            }).then(() => {
+                if (this.state.isUserLoggedIn) {
+                    this.props.navigation.navigate(('Main'), { user_id: this.state.id_user });
+                }
+            })
+                .done();
+        }else{
+            alert("Te rugam completeaza campurile. Multumim!")
+        }
+       
+      }
 
     render(){
         return (
@@ -28,13 +79,14 @@ class Login extends React.Component{
                     <View style={styles.email}>
                     <View style={{paddingRight: 4}}><FontAwesome name="envelope" color={"white"} size={40}></FontAwesome></View>
                     
-                    <TextInput placeholder="Email" style={styles.TextInput}></TextInput>
+                    <TextInput onChangeText={(email)=> this.setState({email})} value={this.state.email}
+                     placeholder="Email" style={styles.TextInput}></TextInput>
                     </View>
 
                     <View style={styles.email}>
                     <View style={{marginLeft: 7, marginRight: 10}}><FontAwesome name="lock" color={"white"} size={44}></FontAwesome></View>
                     
-                    <TextInput placeholder="Password" style={styles.TextInput}></TextInput>
+                    <TextInput onChangeText={(password)=> this.setState({password})} secureTextEntry={true} value={this.state.password} placeholder="Password" style={styles.TextInput}></TextInput>
                     </View>
 
                     <View style={{marginTop: 7, alignItems:"center"}}>
@@ -47,7 +99,7 @@ class Login extends React.Component{
                     <View style={{marginTop:10, alignItems:"center"}}>
                     <TouchableOpacity style={{backgroundColor:"#fff", width: 160, height: 50, borderWidth: 0, borderRadius: 7}}><View style={styles.facebookContainer}>
                 <View>{
-    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Login')} style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>LOGIN</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text onPress={() => this.login()} style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>LOGIN</Text>) : null}</View>
                 </View> 
                 </TouchableOpacity>
                     </View>
@@ -57,7 +109,7 @@ class Login extends React.Component{
                     <View style={{marginTop:35, alignItems:"center"}}>
                     <TouchableOpacity style={{backgroundColor:"#fff", width: 200, height: 50, borderWidth: 0, borderRadius: 7}}><View style={styles.facebookContainer}>
                 <View>{
-    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Login')} style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>REGISTER ACCOUNT</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Register')} style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>REGISTER ACCOUNT</Text>) : null}</View>
                 </View> 
                 </TouchableOpacity>
                     </View>

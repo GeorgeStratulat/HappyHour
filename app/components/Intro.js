@@ -34,7 +34,7 @@ class Intro extends React.Component{
                 <View style={{alignItems:"center", marginBottom: 2}}><Text>or</Text></View>
                 <TouchableOpacity style={{backgroundColor:"#ffb346", width: 240, height: 60, borderWidth: 0, borderRadius: 7}}><View style={styles.facebookContainer}>
                 <View>{
-    this.state.fontLoaded ? (<Text style={{color:"white", fontSize: 15, fontFamily: 'comic-relief'}}>REGISTER WITH EMAIL</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Register')} style={{color:"white", fontSize: 15, fontFamily: 'comic-relief'}}>REGISTER WITH EMAIL</Text>) : null}</View>
                 </View> 
                 </TouchableOpacity>
             </View>
