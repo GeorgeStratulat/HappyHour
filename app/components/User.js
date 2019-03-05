@@ -72,7 +72,8 @@ class User extends React.Component{
 
     renderItem = ({item}) =>{
         console.log(item.lista_bauturi);
-        if(this.state.tipAbonament){
+        // if(this.state.tipAbonament){'
+        if(1==0){
         return(
      <View style={styles.container} >
 

@@ -25,6 +25,7 @@ class Detalii extends React.Component{
             itemId: null,
             isLoading: true,
             dataSource:[],
+            dataImagini: [],
             activeSections: [],
             visible: false,
             fontLoaded: false,
@@ -54,12 +55,12 @@ class Detalii extends React.Component{
         <View style={{flex:1, flexDirection: 'column',  marginBottom: 1,
         backgroundColor: "#fff", justifyContent: 'center', alignItems: 'center'}} >
             <Carousel
-              data={item.imagine}
+              data={this.state.dataImagini}
               sliderWidth={width}
               itemWidth={width}
               renderItem={ ({item})=> (
                 <Image style={{ alignSelf: 'stretch', height:300 }} 
-                source={{uri: item}} />
+                source={{uri: item.url}} />
                 
                 ) }
               
@@ -203,6 +204,7 @@ class Detalii extends React.Component{
             const {navigation} = this.props;
             console.log(navigation.getParam("user_id","NO-ID"));
             const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
+            const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/imagini";
             console.log(url);
                 fetch(url)
                 .then((response)=>response.json())
@@ -211,7 +213,14 @@ class Detalii extends React.Component{
                 .catch((error) => {
                     console.log("nu merge fetchul");
                 });
-              
+            
+                fetch(urlGetImagini)
+                .then((response)=>response.json())
+                .then( result => this.setState(
+                    {dataImagini: result }))
+                .catch((error) => {
+                    console.log("nu merge fetchul");
+                });
         }
         
         

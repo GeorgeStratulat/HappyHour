@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, 
     TextInput, TouchableOpacity, AsyncStorage, Button, Image } from 'react-native';  
-import Memberarea from "./Memberarea";
 
 
 class Formular extends React.Component {

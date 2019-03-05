@@ -10,6 +10,8 @@ import User from "./app/components/User";
 import Istoric from "./app/components/Istoric";
 import Cumpara_Abonament from "./app/components/Cumpara_Abonament";
 import Support from "./app/components/Support";
+import Intro from "./app/components/Intro";
+import Login from "./app/components/Login";
 
 
 export default class App extends React.Component {
@@ -28,6 +30,12 @@ export default class App extends React.Component {
 }
 
 const AppNavigator = createStackNavigator({
+  Intro: { screen: Intro, navigationOptions: {
+    header: null // Will hide header for HomePage
+} },
+Login: { screen: Login, navigationOptions: {
+  header: null // Will hide header for HomePage
+} },
   Formular: { screen: Formular, navigationOptions: {
     header: null // Will hide header for HomePage
 } },
