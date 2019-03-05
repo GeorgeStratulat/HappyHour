@@ -204,15 +204,28 @@ class Detalii extends React.Component{
             const {navigation} = this.props;
             console.log(navigation.getParam("user_id","NO-ID"));
             const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
+            const urlVerificareOferta = "https://radiant-beyond-44987.herokuapp.com/bautura/";
             const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/imagini";
             console.log(url);
                 fetch(url)
                 .then((response)=>response.json())
                 .then( result => this.setState(
-                    {dataSource: result }))
-                .catch((error) => {
+                    {dataSource: result })
+                    ).catch((error) => {
                     console.log("nu merge fetchul");
                 });
+                
+                var bauturi = this.state.dataSource;
+
+                bauturi.forEach(function(element) {
+                    console.log("Uite bauturile:" + element);
+                    fetch(urlVerificareOferta+element._id+"/verificOferta")
+                    .then((response)=>response.json())
+                    .then( // verifica daca e data de azi si orele
+                        ).catch((error) => {
+                        console.log("nu merge fetchul");
+                    });
+                  });
             
                 fetch(urlGetImagini)
                 .then((response)=>response.json())
