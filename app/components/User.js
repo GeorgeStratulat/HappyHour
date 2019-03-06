@@ -65,8 +65,8 @@ class User extends React.Component{
         
     }
     _logout(){
-        AsyncStorage.setItem('username', '');
-        this.props.navigation.navigate(('Formular'));
+        AsyncStorage.setItem('email', '');
+        this.props.navigation.navigate(('Login'));
 
     }
 

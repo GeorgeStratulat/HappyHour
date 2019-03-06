@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, 
-    TextInput, TouchableOpacity, AsyncStorage, Button, Image } from 'react-native';  
+    TextInput, TouchableOpacity, AsyncStorage, Button, Image, Modal } from 'react-native';  
     import FontAwesome from "react-native-vector-icons/FontAwesome";
     import { Font } from 'expo';
 
 class Login extends React.Component{
     constructor(props){
         super(props);
-        this.state = {fontLoaded: false, email: "", password: "", id_user: "", isUserLoggedIn: false, userInfo:""};
+        this.state = {modalVisible: false, modal2Visible: false, fontLoaded: false, email: "", password: "", id_user: "", isUserLoggedIn: false, userInfo:"", emailSent: ""};
     }
 
     async componentDidMount() {
@@ -21,7 +21,9 @@ class Login extends React.Component{
             this.setState({
                 id_user: e,
                 userInfo:"",
-                picture:""
+                picture:"",
+                modalVisible: false,
+                modal2Visible: false
             })
         })
         .then(() => {
@@ -30,6 +32,22 @@ class Login extends React.Component{
            }
         })
     }
+
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
+
+      closeModal() {
+        this.setState({modalVisible:false});
+      }
+
+      setModalVisible2(visible) {
+        this.setState({modal2Visible: visible});
+      }
+
+      closeModal2() {
+        this.setState({modal2Visible:false});
+      }
 
     login(){
         if(this.state.email!="" && this.state.password!=""){
@@ -74,6 +92,58 @@ class Login extends React.Component{
     render(){
         return (
             <View style={styles.container}>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            this.closeModal();}}
+           >
+
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080'}}>
+                 <View style={{ width: "88%",height: "40%",  backgroundColor: "white", alignItems:"center"}}>
+                 <View style={{position:"absolute", right: 6, top:0}}><TouchableOpacity onPress={()=>{this.closeModal(); this.setState({emailSent:""})}} ><FontAwesome name="times" color={"#ffb346"} size={23}></FontAwesome></TouchableOpacity></View>
+                 <View style={{marginTop: 27, marginLeft: 10, marginRight: 10}}>{
+    this.state.fontLoaded ? (<View>
+        <Text style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>Va rugam sa va introduceti adresa de email de pe care v-ati creat contul.</Text>
+        <Text style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>Noi va vom trimite in cel mai scurt timp un email pentru a va crea o parola noua!</Text>
+        <View style={styles.email}>
+                    <View style={{paddingRight: 4}}><FontAwesome name="envelope" color={"#ffb346"} size={42}></FontAwesome></View>
+                    <TextInput onChangeText={(emailSent)=> this.setState({emailSent})} value={this.state.emailSent}
+                     placeholder="Email" style={styles.TextInputForm}></TextInput>
+                    </View>
+        <View style={styles.facebookContainer}>
+        <TouchableOpacity onPress={()=>{this.closeModal(); this.setModalVisible2(!this.state.modal2Visible) }}  style={{justifyContent:"center", alignItems:"center", backgroundColor:"#ffb346", width: 160, height: 50, borderWidth: 0, borderRadius: 7}}>
+        <Text style={{color:"#fff", fontSize: 14, fontFamily: 'comic-relief'}}>SEND EMAIL</Text>
+        </TouchableOpacity></View>
+        </View>) : null}</View>
+                
+                </View>
+            </View>
+          </Modal>
+
+          <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modal2Visible}
+          onRequestClose={() => {
+            this.closeModal2();}}
+           >
+
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080'}}>
+                 <View style={{ width: "88%",height: "25%",  backgroundColor: "white", alignItems:"center"}}>
+                 <View style={{position:"absolute", right: 6, top:0}}><TouchableOpacity onPress={()=>{this.closeModal2(); this.setState({emailSent:""})}} ><FontAwesome name="times" color={"#ffb346"} size={23}></FontAwesome></TouchableOpacity></View>
+                 <View style={{marginTop: 27, marginLeft: 10, marginRight: 10}}>{
+    this.state.fontLoaded ? (<View>
+        <Text style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>Un link de resetare a parolei a fost trimis la adresa {this.state.emailSent}. Urmariti linkul si pasii pentru a va reseta parola!</Text>
+        <View style={styles.facebookContainer}><TouchableOpacity onPress={()=>{this.closeModal2(); this.setState({emailSent: ""}) }} style={{justifyContent:"center", alignItems:"center", backgroundColor:"#ffb346", width: 160, height: 50, borderWidth: 0, borderRadius: 7}}><Text style={{color:"#fff", fontSize: 14, fontFamily: 'comic-relief'}}>OK</Text></TouchableOpacity></View>
+        </View>) : null}</View>
+                
+                </View>
+            </View>
+          </Modal>
+
                 <Image style={styles.image} source={{uri: "https://i.imgur.com/Csyw4IL.png"}}/>
                 <View style={styles.formular}>
                     <View style={styles.email}>
@@ -92,7 +162,7 @@ class Login extends React.Component{
                     <View style={{marginTop: 7, alignItems:"center"}}>
                         <TouchableOpacity>
                         <View>{
-    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Login')} style={{color:"#fff", fontSize: 13, fontFamily: 'comic-relief'}}>FORGOT PASSWORD?</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text onPress={()=>this.setModalVisible(!this.state.modalVisible)} style={{color:"#fff", fontSize: 13, fontFamily: 'comic-relief'}}>FORGOT PASSWORD?</Text>) : null}</View>
                         </TouchableOpacity>
                     </View>
 
@@ -157,6 +227,13 @@ const styles = StyleSheet.create({
         height: 40,
         backgroundColor:"rgba(255,255,255,0.25)",
         color: "white",
+    },
+    TextInputForm:{
+        alignSelf:"stretch",
+        width: "74%",
+        height: 40,
+        backgroundColor:"rgba(255, 179, 70,0.25)",
+        color: "#ffb346",
     },
     facebookContainer:{
         alignItems:"center",
