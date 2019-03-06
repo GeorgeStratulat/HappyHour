@@ -207,6 +207,7 @@ class User extends React.Component{
 
     render(){
         var dataUser = [];
+        console.log("ASTA DE CE DUMNEZEU MERGE?? "+this.state.dataSource);
         dataUser.push(this.state.dataSource);
         console.log(this.state.dataSource);
         console.log(this.state.nrBauturi);

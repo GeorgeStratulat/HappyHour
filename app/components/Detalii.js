@@ -17,8 +17,8 @@ import { MapView, Marker } from 'expo';
 
 class Detalii extends React.Component{
     
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             hasData : false,
             itemSource: [],
@@ -26,7 +26,7 @@ class Detalii extends React.Component{
             isLoading: true,
             dataSource:[],
             dataImagini: [],
-            dataOrar: null,
+            dataOrar: [],
             activeSections: [],
             visible: false,
             fontLoaded: false,
@@ -45,37 +45,26 @@ class Detalii extends React.Component{
         const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
         const urlVerificareOferta = "https://radiant-beyond-44987.herokuapp.com/bautura/";
         const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/imagini";
-        const urlGetOrar = "https://radiant-beyond-44987.herokuapp.com/orar/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id;
+        var urlGetOrar = "https://radiant-beyond-44987.herokuapp.com/orar/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id;
 
         // this.setState({dataOrar: urlGetOrar});
+        fetch(urlGetOrar)
+        .then((response)=>response.json())
+        .then( result => {this.setState(
+            {dataOrar: result }); }
+            ).catch((error) => {
+            console.log(error);
+        });
+
             fetch(url)
             .then((response)=>response.json())
             .then( result => {this.setState(
-                {dataSource: result }); console.log("Primul rezultat este"+JSON.stringify(result));}
+                {dataSource: result });  console.log("Primul rezultat este"+JSON.stringify(result));}
                 ).catch((error) => {
                 console.log("nu merge fetchul");
             });
+
             
-            var bauturi = this.state.dataSource;
-
-            fetch(urlGetOrar)
-            .then((response)=>response.json)
-            .then(result => {this.setState(
-                {dataOrar: result}
-            ); console.log("Rezultatul este ->" + JSON.stringify(result))}).catch((error)=>{
-                console.log("nu merge fetch orar");
-            });
-
-
-            bauturi.forEach(function(element) {
-                console.log("Uite bauturile:" + element);
-                fetch(urlVerificareOferta+element._id+"/verificOferta")
-                .then((response)=>response.json())
-                .then( // verifica daca e data de azi si orele
-                    ).catch((error) => {
-                    console.log("nu merge fetchul");
-                });
-              });
         
             fetch(urlGetImagini)
             .then((response)=>response.json())
@@ -95,8 +84,7 @@ class Detalii extends React.Component{
         var detalii = item.detalii;
         detalii = detalii.replace(/.ceva/g, '\n');
     
-        console.log(detalii.replace(/.ceva/g, '\n'));
-        console.log("Orarul->>"+this.state.dataOrar);
+        console.log("Orarul->>" + JSON.stringify(this.state.dataOrar.luni));
         return(
         <View style={{flex:1, flexDirection: 'column',  marginBottom: 1,
         backgroundColor: "#fff", justifyContent: 'center', alignItems: 'center'}} >
@@ -133,31 +121,31 @@ class Detalii extends React.Component{
                     <Text style={{color:"#ee9323", marginBottom: 2, marginLeft: 15, marginRight: 8}}>{" "+detalii}</Text>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Luni</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.luni.split("-")[0]}-{this.state.dataOrar.luni.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Luni</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.luni}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Marti</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.marti.split("-")[0]}-{this.state.dataOrar.marti.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Marti</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.marti}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Miercuri</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.miercuri.split("-")[0]}-{this.state.dataOrar.miercuri.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Miercuri</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.miercuri}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Joi</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.joi.split("-")[0]}-{this.state.dataOrar.joi.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Joi</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.joi}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Vineri</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.vineri.split("-")[0]}-{this.state.dataOrar.vineri.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Vineri</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.vineri}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Sambata</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.sambata.split("-")[0]}-{this.state.dataOrar.sambata.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Sambata</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.sambata}</Text></View>
                     </View>
                     <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
                     marginLeft: 100, marginRight: 100}}>
-                        <View><Text style={{color:"#ee9323"}}>Duminica</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.duminica.split("-")[0]}-{this.state.dataOrar.duminica.split("-")[1]}</Text></View>
+                        <View><Text style={{color:"#ee9323"}}>Duminica</Text></View><View/><View><Text style={{color:"#ee9323"}}>{this.state.dataOrar.duminica}</Text></View>
                     </View>
                     
                     </CollapseBody>
@@ -279,8 +267,6 @@ class Detalii extends React.Component{
             console.log(navigation.getParam("itemDetalii", "NO-ID"));
             dataDetalii.push(navigation.getParam("itemDetalii", "NO-ID"));
             var Bauturi = navigation.getParam("itemDetalii", "NO-ID").bauturi;
-            console.log("ORarul este egal cu "+this.state.dataOrar);
-            
             return(
             <View style={styles.container}>
                     <Header
