@@ -28,7 +28,7 @@ class Login extends React.Component{
         })
         .then(() => {
            if(this.state.id_user!== undefined && this.state.id_user!== null && this.state.id_user!=""){
-               this.props.navigation.navigate(('Main'), { user_id: this.state.id_user });
+               this.props.navigation.navigate(('Home'), { user_id: this.state.id_user });
            }
         })
     }
@@ -79,7 +79,7 @@ class Login extends React.Component{
                 }
             }).then(() => {
                 if (this.state.isUserLoggedIn) {
-                    this.props.navigation.navigate(('Main'), { user_id: this.state.id_user });
+                    this.props.navigation.navigate(('Home'), { user_id: this.state.id_user });
                 }
             })
                 .done();

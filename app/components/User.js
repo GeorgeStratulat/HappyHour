@@ -29,9 +29,9 @@ class User extends React.Component{
         const {navigation} = this.props;
         var idUser = navigation.getParam("user_id", "NO-ID");
         var userInfo = navigation.getParam("user_info", "NO-INFO");
-        console.log("->>>>" + userInfo)
+        console.log("poate poate poate->>>>" + JSON.stringify(AsyncStorage.getItem("user_id")));
         this.setState({userInfo: userInfo});
-        console.log(navigation.getParam("user_id", "NO-ID"));
+        console.log("de aici ar trebui->>" + JSON.stringify(navigation.getParam("user_id", "NO-ID")));
         const url = "https://radiant-beyond-44987.herokuapp.com/users/"+idUser ;
         console.log(url);
         fetch(url)

@@ -2,24 +2,29 @@ import React from "react";
 import {Alert, ScrollView, YellowBox, Text, View, FlatList, ImageBackground, ActivityIndicator, TouchableOpacity, ToastAndroid, StyleSheet, AsyncStorage, TextInput, Image,
 Modal} from "react-native";
 import NavBar, { NavButton, NavButtonText, NavGroup, NavTitle } from 'react-native-nav';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {Header, ListItem} from "react-native-elements";
 import FullWidthImage from 'react-native-fullwidth-image';
 import { MapView, Marker, Font } from 'expo';
+import Oferte from "./Oferte";
 
 
  YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module.RTCImageLoader"]);
 
+
    class Main extends React.Component {
      
-    constructor(){
-        super() 
+    constructor(props){
+        super(props) 
         this.state ={
             fontLoaded: false,
             dataSource:[],
             isLoading: true,
             modalVisible: false,
+            user_id: 0
             
         }
     }
@@ -96,8 +101,10 @@ import { MapView, Marker, Font } from 'expo';
 
        async componentDidMount(){
             const {navigation} = this.props;
-            console.log(navigation.getParam("user_id", "NO-ID"));
+            console.log("de aici ar trebui->>"+navigation.getParam("user_id", "NO-ID"));
             const url = "https://radiant-beyond-44987.herokuapp.com/venue";
+            var user_id = await AsyncStorage.getItem("user_id");
+            this.setState({user_id: user_id});
             fetch(url)
             .then((response)=>response.json())
             .then( result => this.setState(
@@ -158,7 +165,9 @@ import { MapView, Marker, Font } from 'expo';
                             marginBottom: 10,
                         }, 
                         icon: 'user-o', type: "font-awesome", color: '#ffcd00', size: 20,  
-                        onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") } ) }}
+                        // onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") } ) }}
+                        onPress: () => this.props.navigation.navigate(('User'), {user_id: this.state.user_id } ) }}
+
                     centerComponent={<LogoTitle/>}
                     rightComponent={{ icon: 'map-o', type: 'font-awesome', color: '#ffcd00', size: 22, top: 0, 
                     onPress: () => {this.setModalVisible(!this.state.modalVisible);} }} 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, TextInput,
    TouchableOpacity, Button, NavigatorIOS, AsyncStorage} from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import Formular from "./app/components/Formular";
 import Main from "./app/components/Main";
 import Register from "./app/components/Register";
@@ -12,6 +12,8 @@ import Cumpara_Abonament from "./app/components/Cumpara_Abonament";
 import Support from "./app/components/Support";
 import Intro from "./app/components/Intro";
 import Login from "./app/components/Login";
+import Oferte from "./app/components/Oferte";
+import Home from "./app/components/Home";
 
 
 export default class App extends React.Component {
@@ -29,6 +31,7 @@ export default class App extends React.Component {
   
 }
 
+
 const AppNavigator = createStackNavigator({
   Intro: { screen: Intro, navigationOptions: {
     header: null // Will hide header for HomePage
@@ -43,7 +46,8 @@ Login: { screen: Login, navigationOptions: {
 Register : {screen: Register, navigationOptions: {
   header: null // Will hide header for HomePage
 }},
-Main : {screen: Main, navigationOptions:{ header: null}},
+Home: {screen: Home, navigationOptions:{header:null}},
+// Main : {screen: Main, navigationOptions:{ header: null}},
 Detalii : {screen: Detalii, navigationOptions:{header: null}},
 User: {screen: User, navigationOptions: {header: null} },
 Istoric:{screen: Istoric, navigationOptions:{header: null}},
