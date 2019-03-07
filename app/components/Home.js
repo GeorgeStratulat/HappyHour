@@ -71,6 +71,17 @@ const MainStack =  createStackNavigator({
     Support:{screen: Support, navigationOptions:{header:null}}
   });
 
+  MainStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+      tabBarVisible = false;
+    }
+  
+    return {
+      tabBarVisible,
+    };
+  };
+
   const OferteStack = createStackNavigator({
     Oferte: { screen: Oferte },
   });
