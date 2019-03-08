@@ -83,7 +83,7 @@ const MainStack =  createStackNavigator({
   };
 
   const OferteStack = createStackNavigator({
-    Oferte: { screen: Oferte },
+    Oferte: { screen: Oferte, navigationOptions:{ header: null} },
   });
 
 const TabNavigator = createBottomTabNavigator({

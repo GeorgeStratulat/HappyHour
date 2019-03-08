@@ -28,6 +28,7 @@ class Detalii extends React.Component{
             dataImagini: [],
             dataOrar: [],
             activeSections: [],
+            venue_source:[],
             visible: false,
             fontLoaded: false,
             collapsed:false,
@@ -42,16 +43,34 @@ class Detalii extends React.Component{
     componentDidMount(){
         const {navigation} = this.props;
         console.log(navigation.getParam("user_id","NO-ID"));
-        const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
-        const urlVerificareOferta = "https://radiant-beyond-44987.herokuapp.com/bautura/";
-        const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/imagini";
-        var urlGetOrar = "https://radiant-beyond-44987.herokuapp.com/orar/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id;
+        // const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
+        const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")+"/bautura";
 
+        const urlVerificareOferta = "https://radiant-beyond-44987.herokuapp.com/bautura/";
+        // const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/imagini";
+        const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")+"/imagini";
+
+        // var urlGetOrar = "https://radiant-beyond-44987.herokuapp.com/orar/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id;
+        var urlGetOrar = "https://radiant-beyond-44987.herokuapp.com/orar/venue/"+navigation.getParam("itemDetalii", "NO-ID");
+
+        // var urlGetVenue = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id;
+        var urlGetVenue = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID");
+
+
+        // this.setState({venue_source: navigation.getParam("itemDetalii", "NO-ID")});
         // this.setState({dataOrar: urlGetOrar});
         fetch(urlGetOrar)
         .then((response)=>response.json())
         .then( result => {this.setState(
             {dataOrar: result }); }
+            ).catch((error) => {
+            console.log(error);
+        });
+
+        fetch(urlGetVenue)
+        .then((response)=>response.json())
+        .then( result => {this.setState(
+            {venue_source: result }); }
             ).catch((error) => {
             console.log(error);
         });
@@ -82,7 +101,7 @@ class Detalii extends React.Component{
         const {navigation} = this.props;
         var numeBar = item.nume;
         var detalii = item.detalii;
-        detalii = detalii.replace(/.ceva/g, '\n');
+        // detalii = detalii.replace(/.ceva/g, '\n');
     
         console.log("Orarul->>" + JSON.stringify(this.state.dataOrar.luni));
         return(
@@ -265,8 +284,11 @@ class Detalii extends React.Component{
             const {navigation} = this.props;
             var dataDetalii = [];
             console.log(navigation.getParam("itemDetalii", "NO-ID"));
-            dataDetalii.push(navigation.getParam("itemDetalii", "NO-ID"));
+            // dataDetalii.push(navigation.getParam("itemDetalii", "NO-ID"));
+            dataDetalii.push(this.state.venue_source);
+
             var Bauturi = navigation.getParam("itemDetalii", "NO-ID").bauturi;
+            console.log("ar  trebui sa arate asa ... " + JSON.stringify(this.state.venue_source));
             return(
             <View style={styles.container}>
                     <Header
