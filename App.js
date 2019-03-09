@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground, TextInput,
    TouchableOpacity, Button, NavigatorIOS, AsyncStorage} from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import Formular from "./app/components/Formular";
 import Main from "./app/components/Main";
 import Register from "./app/components/Register";
 import Detalii from "./app/components/Detalii";
@@ -39,10 +38,6 @@ const AppNavigator = createStackNavigator({
 Login: { screen: Login, navigationOptions: {
   header: null // Will hide header for HomePage
 } },
-  Formular: { screen: Formular, navigationOptions: {
-    header: null // Will hide header for HomePage
-} },
-  
 Register : {screen: Register, navigationOptions: {
   header: null // Will hide header for HomePage
 }},

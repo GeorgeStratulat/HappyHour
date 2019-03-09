@@ -4,7 +4,6 @@ import { WebView } from "react-native-gesture-handler";
 import {createMaterialTopTabNavigator} from "react-navigation";
 import {StackNavigator} from "react-navigation";
 YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module.RTCImageLoader"]);
-import Formular from "./Formular";
 import Register from "./Register";
 import Main from "./Main";
 
@@ -25,12 +24,7 @@ class MainNavigator extends React.Component{
         <Icon name="ios-home" color={tintColor} size={24}/>
       )
     } },
-    Formular: {screen:Formular, navigationOptions:{
-      tabBarLabel: "Formular",
-      tabBarIcon:({tintColor})=>(
-        <Icon name="ios-settings" color={tintColor} size={24}/>
-      )
-    }},
+   
     
   },
   {

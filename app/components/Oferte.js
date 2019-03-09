@@ -74,8 +74,16 @@
             title={item.nume}
             
           />
-          <CardTitle subtitle="Number 6" />
-          <CardContent><View style={{flexDirection: 'row', justifyContent:"space-between"}}>
+          <CardContent>
+            <View>
+            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}><Icon name = "location-pin" size={16}/>M60</Text>) : null}
+              </View>
+
+          <View>
+            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}>Buy a coffee and get one free</Text>) : null}
+            </View>
+            <View style={{flexDirection: 'row', justifyContent:"space-between"}}>
+           
             <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
             {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}>09:00-12:00</Text>) : null}
             </View>

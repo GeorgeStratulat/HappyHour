@@ -8,7 +8,7 @@ import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-co
 import {Header} from "react-native-elements";
 import PopupDialog, { DialogButton, DialogContent } from 'react-native-popup-dialog';
 import { TextInput } from "react-native-gesture-handler";
-import { MapView, Marker } from 'expo';
+import { MapView, Marker, Font } from 'expo';
 
 
 
@@ -20,6 +20,7 @@ class Detalii extends React.Component{
     constructor(){
         super();
         this.state = {
+            fontLoaded: false,
             hasData : false,
             itemSource: [],
             itemId: null,
@@ -40,11 +41,11 @@ class Detalii extends React.Component{
         
     }
     
-    componentDidMount(){
+    async componentDidMount(){
         const {navigation} = this.props;
         console.log(navigation.getParam("user_id","NO-ID"));
         // const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/bautura";
-        const url = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")+"/bautura";
+        const url = "https://radiant-beyond-44987.herokuapp.com/oferta/"+navigation.getParam("itemDetalii", "NO-ID");
 
         const urlVerificareOferta = "https://radiant-beyond-44987.herokuapp.com/bautura/";
         // const urlGetImagini = "https://radiant-beyond-44987.herokuapp.com/venue/"+navigation.getParam("itemDetalii", "NO-ID")._id+"/imagini";
@@ -92,6 +93,11 @@ class Detalii extends React.Component{
             .catch((error) => {
                 console.log("nu merge fetchul");
             });
+
+            await Font.loadAsync({
+                'comic-relief': require('../../assets/fonts/ComicRelief-Bold.ttf'),
+            });
+            this.setState({ fontLoaded: true });    
     }
     
     
@@ -118,10 +124,11 @@ class Detalii extends React.Component{
                 ) }
               
             />
-                 
-                     <Text style={{fontSize: 30, fontWeight:"bold" ,color: "#ee9323"}}>
+                             {this.state.fontLoaded ? (<Text style={{fontSize: 30, fontFamily: 'comic-relief',color: "#ee9323"}}>
                          {item.nume}
-                     </Text>
+                     </Text>) : null}
+
+                     
                      <Text style={{color: "#ee9323",fontSize:19, marginBottom:4}}> 
                      <EvilIcons name = "location" size={19}/> 
 
@@ -170,8 +177,7 @@ class Detalii extends React.Component{
                     </CollapseBody>
                  </Collapse>
 
-            <Text style={{fontSize: 25, marginTop:7, marginBottom:5, fontWeight:"bold", color: "#ee9323"}}>Bauturi oferite</Text>
-
+{this.state.fontLoaded ? (<Text style={{fontSize: 25, marginTop:7, marginBottom:5, fontFamily:"comic-relief",  color: "#ee9323"}}>Oferte oferite</Text>) : null}
             <Carousel layout={'default'} sliderWidth={width}
             itemWidth={width/2.3}
               
@@ -180,7 +186,7 @@ class Detalii extends React.Component{
               
             <Image style={{ width: 150, height:150, marginBottom: 4, borderWidth: 2, borderColor: "#fbd22c" }} 
                 source={{uri: item.imagine}} />
-                <Text style={{fontSize: 18, color:"#ee9323"}}>{ item.nume }</Text>
+                <Text style={{fontSize: 18, color:"#ee9323"}}>1+1 cafea gratis</Text>
                 <TouchableOpacity onPress={()=> {
                     Alert.alert(
                         'Colecteaza',
@@ -201,7 +207,7 @@ class Detalii extends React.Component{
                                 "Content-Type": "application/json"
                             },
                             body : JSON.stringify({
-                                "id_bautura": item._id,
+                                "id_bautura": item.bautura_id,
                                 "id_user": navigation.getParam("user_id", "NO-ID"),
                                 "imagine_bautura": item.imagine,
                                 "nume_bautura": item.nume,

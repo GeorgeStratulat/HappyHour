@@ -144,14 +144,14 @@ class User extends React.Component{
             <View style={styles.container}>
        
                        <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
-                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, marginBottom: 2}}>
+                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, marginBottom: 10}}>
                                <View style={{ marginLeft: 15,}}><View><Text style={{color:"white", fontSize:20, fontWeight:"bold"}}>{item.prenume} {item.nume}</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{item.email}</Text></View></View>
        
                                <View style={{marginRight: 15,}}><Image source={require("../../assets/happy_user2.png")} style={{ width: 45, height: 45}}></Image></View>
                            </View>
                        
                            <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
-                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, marginTop: 2, marginBottom: 2}}>
+                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, marginTop: 2, marginBottom: 10}}>
                     <View style={{ marginLeft: 15 }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>Ati beneficiat de:</Text></View><View><Text style={{color: "#fff",fontSize:13}}>{this.state.nrBauturi} bauturi</Text></View></View>
                            <View style={{marginRight: 15}}><TouchableOpacity onPress={()=> { this.props.navigation.navigate(('Istoric'), {user_id: item._id}) } }
                        style={{width: 100, height: 38, marginTop: 10, flexDirection:"row", alignItems:"center", 
@@ -163,7 +163,7 @@ class User extends React.Component{
                        
        
                        <View style={{flexDirection: "row", justifyContent:"space-between",alignItems: 'center',
-                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, paddingBottom: 15, marginTop: 2, marginBottom: 2}}>
+                            backgroundColor:"rgba(255,179,70, 0.7)", height:70, paddingBottom: 15, marginTop: 2, marginBottom: 10}}>
                     <View style={{ marginLeft: 15, }}><View><Text style={{ color: "white", fontSize: 20, fontWeight:"bold"}}>Detalii abonament:</Text></View><View><Text style={{color: "#fff",fontSize:13}}>Nu aveti abonament</Text></View></View>
                                
                                <View style={{marginRight: 15}}>
@@ -221,8 +221,7 @@ class User extends React.Component{
                             paddingBottom: 15,
                             marginBottom: 15,
                         },
-                        icon: 'cog', type: "font-awesome", color: '#ffcd00', size: 22,
-                        onPress: () => this.props.navigation.navigate(('User'), { user_id: navigation.getParam("user_id", "NO-ID") })
+                        icon: 'cog', type: "font-awesome", color: '#ffcd00', size: 22
                     }}
                     centerComponent={<LogoTitle />}
                     rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('Main')) }}
@@ -243,7 +242,6 @@ class User extends React.Component{
            outerContainerStyles={{height: 85, borderBottomWidth:0, marginBottom: -11, marginTop: 15}} 
            /> */}
 
-                <Text style={styles.header}>USER</Text>
                 <FlatList
                     data={dataUser}
                     renderItem={this.renderItem}
