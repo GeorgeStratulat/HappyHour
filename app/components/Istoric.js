@@ -93,7 +93,7 @@ class Istoric extends React.Component{
                 </Header>
 
                 <View style={{margin: 12}}>
-            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 20, fontFamily: 'comic-relief'}}>Your last offers:</Text>) : null}
+            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 20, fontFamily: 'comic-relief'}}>Your last offers :</Text>) : null}
               </View>
 
             <FlatList
