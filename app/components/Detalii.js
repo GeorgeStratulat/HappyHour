@@ -1,6 +1,6 @@
 import React from "react";
 import {ScrollView, Alert, YellowBox, Text, View, FlatList, ImageBackground, ActivityIndicator,
-    Image, TouchableOpacity, TouchableHighlight, ToastAndroid, StyleSheet, AsyncStorage, Dimensions, Platform} from "react-native";
+    Image, TouchableOpacity, TouchableHighlight, ToastAndroid, StyleSheet, AsyncStorage, Dimensions, Platform, Modal} from "react-native";
     import EvilIcons from "react-native-vector-icons/EvilIcons";
     import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Carousel from 'react-native-snap-carousel';
@@ -37,9 +37,18 @@ class Detalii extends React.Component{
             bauturaImagine: "",
             twoFactorVerify: false,
             textVerify: '',
+            modalVisible: false
         };
         
     }
+
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
+
+      closeModal() {
+        this.setState({modalVisible:false});
+      }
     
     async componentDidMount(){
         const {navigation} = this.props;
@@ -199,7 +208,7 @@ class Detalii extends React.Component{
                             .then(result =>{
                                 if(result.bautura_zi == false){
                                 
-                                    fetch("https://radiant-beyond-44987.herokuapp.com/bautura_comandata/addComanda" , {
+                                    fetch("https://radiant-beyond-44987.herokuapp.com/oferta_comandata/addComanda" , {
                             method: "POST",
                             mode: "cors",
                             headers:{
@@ -207,11 +216,11 @@ class Detalii extends React.Component{
                                 "Content-Type": "application/json"
                             },
                             body : JSON.stringify({
-                                "id_bautura": item.bautura_id,
+                                "id_oferta": item._id,
                                 "id_user": navigation.getParam("user_id", "NO-ID"),
-                                "imagine_bautura": item.imagine,
+                                "imagine_oferta": item.imagine,
                                 "nume_bautura": item.nume,
-                                "locatie_bautura": numeBar
+                                "locatie_oferta": numeBar
                             })
                         }).then((response) => response.json()).then((res) => {
                                 if(res){
@@ -220,7 +229,7 @@ class Detalii extends React.Component{
                                     alert("it's from here");
                                     alert(res.message);
                                 }}).done();
-                        this.setState({bauturaNume: item.nume, bauturaImagine: item.imagine, twoFactorVerify: true})  
+                        this.setState({bauturaNume: item.nume, bauturaImagine: item.imagine, modalVisible: true})  
 
                                 }else{alert("Asteapta pana maine")}
                             })
@@ -338,6 +347,31 @@ class Detalii extends React.Component{
         </DialogContent>
     </PopupDialog>
 
+    <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            this.closeModal();}}
+           >
+
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080'}}>
+                 <View style={{ width: "88%",height: "50%",  backgroundColor: "white", alignItems:"center"}}>
+                 <View style={{position:"absolute", right: 6, top:0}}><TouchableOpacity onPress={()=>{this.closeModal(); }} ><FontAwesome name="times" color={"#ffb346"} size={23}></FontAwesome></TouchableOpacity></View>
+                 <Image style={{ width: 150, height:150, marginBottom: 4, marginTop: 10 }} 
+                source={{uri: this.state.bauturaImagine}} />
+                 <View style={{marginTop: 20, marginLeft: 10, marginRight: 10}}>{
+    this.state.fontLoaded ? (<View>
+        <Text style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>Felicitari! Ati primit din partea casei: { this.state.bauturaNume }.</Text>
+        <Text style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>Va rugam asteptati ca ospatarul sa verifice si sa va aduca comanda.<FontAwesome name="smile-o" color={"#ffb346"} size={17}></FontAwesome></Text>
+        <View style={styles.facebookContainer}><TouchableOpacity onPress={()=>{this.closeModal();}}  style={{justifyContent:"center", alignItems:"center", backgroundColor:"#ffb346", width: 160, height: 50, borderWidth: 0, borderRadius: 7}}><Text style={{color:"#fff", fontSize: 14, fontFamily: 'comic-relief'}}>OK</Text></TouchableOpacity></View>
+        </View>) : null}</View>
+                
+                </View>
+            </View>
+          </Modal>
+
+
     <PopupDialog dialogStyle={{backgroundColor:"#fbd22c",}} width={300} visible={this.state.visible} onTouchOutside={() => {this.setState({ visible: false });}}>
     <DialogContent style={{justifyContent: 'center', alignItems: 'center'}}>
     <Image style={{ width: 150, height:150, marginBottom: 4, marginTop: 10 }} 
@@ -382,7 +416,14 @@ const styles =  StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
-    }
+    },
+    facebookContainer:{
+        alignItems:"center",
+        justifyContent:"center",
+        flexDirection:"row",
+        marginTop: 10
+    
+    },
     
 });
 

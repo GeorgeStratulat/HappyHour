@@ -27,6 +27,7 @@ class User extends React.Component{
 
     componentDidMount(){
         const {navigation} = this.props;
+        const {goBack} = this.props.navigation;
         var idUser = navigation.getParam("user_id", "NO-ID");
         var userInfo = navigation.getParam("user_info", "NO-INFO");
         console.log("poate poate poate->>>>" + JSON.stringify(AsyncStorage.getItem("user_id")));
@@ -224,7 +225,7 @@ class User extends React.Component{
                         icon: 'cog', type: "font-awesome", color: '#ffcd00', size: 22
                     }}
                     centerComponent={<LogoTitle />}
-                    rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('Main')) }}
+                    rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('Home')) }}
                     backgroundColor="#fff"
                     leftContainerStyle={{ bottom: 100 }}
                     outerContainerStyles={{ height: 50, borderBottomWidth: 0, marginBottom: 0, marginTop: 0 }}

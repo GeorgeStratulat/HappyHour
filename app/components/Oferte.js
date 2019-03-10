@@ -24,7 +24,7 @@
           }
       }
 
-      async componentWillMount(){
+      async componentDidMount(){
           const {navigation} = this.props;
           var oferte;
           // console.log(navigation.getParam("user_id", "NO-ID"));
@@ -53,8 +53,10 @@
 
       renderItem = ({item}) =>{
         const {navigation} = this.props;
+        var ora_inceput = new Date(item.ora_inceput);
+        var ora_sfarsit = new Date(item.ora_sfarsit);
+        console.log(ora_inceput.getHours()+"-"+ora_sfarsit.getHours());
         return(
-
                 <Card style={{ 
                               flex: 1,
                               margin: 20, 
@@ -85,11 +87,11 @@
             <View style={{flexDirection: 'row', justifyContent:"space-between"}}>
            
             <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
-            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}>09:00-12:00</Text>) : null}
+            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}>{ora_inceput.getHours()}:00-{ora_sfarsit.getHours()}:00</Text>) : null}
             </View>
 
             <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}>47 <FontAwesome name="smile-o" color={"#ffb346"} size={18}></FontAwesome></Text>) : null}
+            {this.state.fontLoaded ? (<Text style={{color:"#ffb346", fontSize: 17, fontFamily: 'comic-relief'}}>{item.happy_faces} <FontAwesome name="smile-o" color={"#ffb346"} size={18}></FontAwesome></Text>) : null}
             </View>
             
             </View>
