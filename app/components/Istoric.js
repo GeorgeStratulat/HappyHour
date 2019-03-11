@@ -80,11 +80,10 @@ class Istoric extends React.Component{
                             paddingBottom: 15,
                             marginBottom: 15,
                         },
-                        icon: 'cog', type: "font-awesome", color: '#ffcd00', size: 22,
-                        onPress: () => this.props.navigation.navigate(('User'), { user_id: navigation.getParam("user_id", "NO-ID") })
+                        icon: 'md-arrow-round-back', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") })
                     }}
                     centerComponent={<LogoTitle />}
-                    rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") }) }}
+                    // rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") }) }}
                     backgroundColor="#fff"
                     leftContainerStyle={{ bottom: 100 }}
                     outerContainerStyles={{ height: 50, borderBottomWidth: 0, marginBottom: 0, marginTop: 0 }}

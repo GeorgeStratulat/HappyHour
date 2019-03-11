@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, ImageBackground,
     TextInput, TouchableOpacity, AsyncStorage, Button, Image } from 'react-native';  
     import FontAwesome from "react-native-vector-icons/FontAwesome";
     import { Font } from 'expo';
+    import LocalizedStrings from 'react-native-localization';
 
 class Intro extends React.Component{
     constructor(props ){
@@ -22,7 +23,7 @@ class Intro extends React.Component{
             <View style={styles.container}>
             <Image style={styles.image} source={{uri: "https://i.imgur.com/Csyw4IL.png"}}/>
             <View>
-                <View style={{alignItems:"center", marginTop: 20, marginBottom: 5}}><Text style={{fontSize: 17}}>Login with</Text></View>
+                <View style={{alignItems:"center", marginTop: 20, marginBottom: 5}}><Text style={{fontSize: 17}}>{strings.greeting}</Text></View>
 
                 <TouchableOpacity style={styles.facebook}><View style={styles.facebookContainer}>
                 <View style={{paddingRight: 7}}><FontAwesome name="facebook-square" color={"white"} size={22}></FontAwesome></View>
@@ -56,6 +57,15 @@ class Intro extends React.Component{
 }
 
 export default Intro;
+let strings = new LocalizedString({
+    en: {
+      greeting: "Hello there",
+    },
+    ro: {
+      greeting: "Salut yo",
+    }
+  })
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -6,7 +6,6 @@ import {StackNavigator,
     createStackNavigator,
     createAppContainer,
   } from 'react-navigation';
-
 import Oferte from "./Oferte";
 import Main from "./Main";
 import Detalii from "./Detalii";
@@ -40,6 +39,8 @@ class Home extends React.Component {
       
 }
 export default Home;
+
+
 
 const styles = StyleSheet.create({
 	tab: {
@@ -92,13 +93,13 @@ const TabNavigator = createBottomTabNavigator({
         
         navigationOptions: ({ navigation }) => ({
             title: "Oferte",
-            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="glass-cocktail" color={"#ffb346"} size={23}></MaterialCommunityIcons>
+            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="glass-cocktail" color={tintColor} size={23}></MaterialCommunityIcons>
         }) 
     },
     Main: { screen: MainStack,
         navigationOptions: ({ navigation }) => ({
             title: "Restaurante",
-            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="food-fork-drink" color={"#ffb346"} size={23}></MaterialCommunityIcons>
+            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="food-fork-drink" color={tintColor} size={23}></MaterialCommunityIcons>
         }) },
   },
   {
@@ -110,7 +111,7 @@ const TabNavigator = createBottomTabNavigator({
     order: ["Oferte", "Main"],
     backBehavior: "initialRoute",
     tabBarOptions: {
-        activeTintColor: "#ffb346",
+        activeTintColor: "#fff",
         inactiveTintColor: "#ffb346",
         showLabel: true,
         showIcon: true,
@@ -121,7 +122,8 @@ const TabNavigator = createBottomTabNavigator({
         indicatorStyle: styles.indicator,
         labelStyle: styles.label,
         iconStyle: styles.icon,
-        style: styles.tabBar
+        style: styles.tabBar,
+        activeBackgroundColor: "#ffc700"
     }
 }
   );

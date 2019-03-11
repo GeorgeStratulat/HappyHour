@@ -11,6 +11,8 @@ import Carousel from 'react-native-snap-carousel';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import {Header} from "react-native-elements";
 import PopupDialog, { DialogButton, DialogContent } from 'react-native-popup-dialog';
+import { Font } from 'expo';
+
 
 class Cumpara_Abonament extends React.Component{
     constructor(){
@@ -161,22 +163,21 @@ class Cumpara_Abonament extends React.Component{
         return(
             <View style={styles.container}>
             <Header
-                      leftComponent={{
-                          style: {
-                              paddingBottom: 10,
-                              marginBottom: 10,
-                          }, 
-                          icon: 'user-o', type: "font-awesome", color: '#ffcd00', size: 20,  
-                          onPress: () => this.props.navigation.navigate(('User'), {user_id: this.state.user_id } ) }}
-                      centerComponent={<LogoTitle/>}
-                      rightComponent={{ icon: 'map-o', type: 'font-awesome', color: '#ffcd00', size: 22, top: 0, 
-                      onPress: () => {this.setModalVisible(!this.state.modalVisible);} }} 
-                      backgroundColor="#fff"
-                      leftContainerStyle={{bottom: 100}}
-                      outerContainerStyles={{height: 50, borderBottomWidth:0, marginBottom: 0, marginTop: 0}} 
-                      containerStyle={{height: 20}}
-                      >
-                      </Header>
+                    leftComponent={{
+                        style: {
+                            paddingBottom: 15,
+                            marginBottom: 15,
+                        },
+                        icon: 'md-arrow-round-back', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") })
+                    }}
+                    centerComponent={<LogoTitle />}
+                    // rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('User'), {user_id: navigation.getParam("user_id", "NO-ID") }) }}
+                    backgroundColor="#fff"
+                    leftContainerStyle={{ bottom: 100 }}
+                    outerContainerStyles={{ height: 50, borderBottomWidth: 0, marginBottom: 0, marginTop: 0 }}
+                    containerStyle={{ height: 20 }}
+                >
+                </Header>
             
             <FlatList
                 data={this.state.dataSource}

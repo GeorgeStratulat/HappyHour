@@ -25,6 +25,7 @@
     "react-native-deprecated-custom-components": "^0.1.2",
     "react-native-elements": "^0.19.1",
     "react-native-fullwidth-image": "^0.1.2",
+    "react-native-localization": "^2.1.0",
     "react-native-modalbox": "^1.6.0",
     "react-native-nav": "^2.0.2",
     "react-native-popup-dialog": "^0.16.3",

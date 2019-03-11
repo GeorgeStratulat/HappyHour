@@ -217,15 +217,9 @@ class User extends React.Component{
         return(
             <View style={styles.container}>
                 <Header
-                    leftComponent={{
-                        style: {
-                            paddingBottom: 15,
-                            marginBottom: 15,
-                        },
-                        icon: 'cog', type: "font-awesome", color: '#ffcd00', size: 22
-                    }}
+                   
                     centerComponent={<LogoTitle />}
-                    rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('Home')) }}
+                    rightComponent={{ icon: 'md-arrow-round-forward', type: "ionicon", color: '#ffcd00', size: 24, top: 0, onPress: () => this.props.navigation.navigate(('Oferte')) }}
                     backgroundColor="#fff"
                     leftContainerStyle={{ bottom: 100 }}
                     outerContainerStyles={{ height: 50, borderBottomWidth: 0, marginBottom: 0, marginTop: 0 }}
