@@ -27,27 +27,27 @@ class Intro extends React.Component{
                 <TouchableOpacity style={styles.facebook}><View style={styles.facebookContainer}>
                 <View style={{paddingRight: 7}}><FontAwesome name="facebook-square" color={"white"} size={22}></FontAwesome></View>
                 <View>{
-    this.state.fontLoaded ? (<Text style={{color:"white", fontSize: 15, fontFamily: 'comic-relief'}}>LOGIN WITH FACEBOOK</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text style={{color:"white", fontSize: 18, fontFamily: 'comic-relief'}}>FACEBOOK</Text>) : null}</View>
                 </View> 
                 </TouchableOpacity>
 
                 <View style={{alignItems:"center", marginBottom: 2}}><Text>or</Text></View>
-                <TouchableOpacity style={{backgroundColor:"#ffb346", width: 240, height: 60, borderWidth: 0, borderRadius: 7}}><View style={styles.facebookContainer}>
+                <TouchableOpacity style={{backgroundColor:"#ffc700", width: 240, height: 60, borderWidth: 0, borderRadius: 7}}><View style={styles.facebookContainer}>
                 <View>{
-    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Register')} style={{color:"white", fontSize: 15, fontFamily: 'comic-relief'}}>REGISTER WITH EMAIL</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Register')} style={{color:"white", fontSize: 18, fontFamily: 'comic-relief'}}>REGISTER WITH EMAIL</Text>) : null}</View>
                 </View> 
                 </TouchableOpacity>
             </View>
             <View style={{marginTop: 50}}>
             <TouchableOpacity style={{backgroundColor:"#fff", width: 200, height: 50, borderWidth: 0, borderRadius: 7}}><View style={styles.facebookContainer}>
                 <View>{
-    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Login')} style={{color:"#ffb346", fontSize: 16, fontFamily: 'comic-relief'}}>LOGIN WITH EMAIL</Text>) : null}</View>
+    this.state.fontLoaded ? (<Text onPress={()=>this.props.navigation.navigate('Login')} style={{color:"#ffb346", fontSize: 18, fontFamily: 'comic-relief'}}>LOGIN WITH EMAIL</Text>) : null}</View>
                 </View> 
                 </TouchableOpacity>
             </View>
             <View style={{alignItems:"center", position: 'absolute', bottom:20}}>
-                <View style={{flexDirection: 'row'}}><Text>By continuing, you agree to our </Text><Text onPress={() => Linking.openURL('http://google.com')} style={styles.underline}>Terms and Conditions</Text></View>
-                <View style={{flexDirection: 'row', }}><Text>and </Text>
+                <View style={{flexDirection: 'row'}}><Text style={{color:"#b8bcc2"}}>By continuing, you agree to our </Text><Text onPress={() => Linking.openURL('http://google.com')} style={styles.underline}>Terms and Conditions</Text></View>
+                <View style={{flexDirection: 'row' }}><Text style={{color:"#b8bcc2"}}>and </Text>
                 <Text onPress={() => Linking.openURL('http://google.com')} style={styles.underline}>Privacy Policy</Text></View>
             </View>
             </View>

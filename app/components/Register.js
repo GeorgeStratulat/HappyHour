@@ -62,9 +62,9 @@ class Register extends React.Component{
                     </View>
                     
 
-                <View style={{alignItems:"center", position: 'absolute', bottom:20}}>
-                <View style={{flexDirection: 'row'}}><Text>By continuing, you agree to our </Text><Text onPress={() => Linking.openURL('http://google.com')} style={styles.underline}>Terms and Conditions</Text></View>
-                <View style={{flexDirection: 'row', }}><Text>and </Text>
+                    <View style={{alignItems:"center", position: 'absolute', bottom:20}}>
+                <View style={{flexDirection: 'row'}}><Text style={{color:"#b8bcc2"}}>By continuing, you agree to our </Text><Text onPress={() => Linking.openURL('http://google.com')} style={styles.underline}>Terms and Conditions</Text></View>
+                <View style={{flexDirection: 'row' }}><Text style={{color:"#b8bcc2"}}>and </Text>
                 <Text onPress={() => Linking.openURL('http://google.com')} style={styles.underline}>Privacy Policy</Text></View>
             </View>
             </View>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: "80%",
         height: "38%",
-        backgroundColor: "#ffb346",
+        backgroundColor: "#ffc700",
         borderWidth: 0,
         borderRadius: 7
     
